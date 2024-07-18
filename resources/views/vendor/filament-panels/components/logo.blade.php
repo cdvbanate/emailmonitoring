@@ -1,0 +1,1 @@
+<img src="{{ asset('/image/TESDA Logo official.png') }}" alt="Logo" class="h-11">
