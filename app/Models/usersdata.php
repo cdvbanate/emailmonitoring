@@ -12,6 +12,6 @@ class usersdata extends Model
     protected $fillable = [
         'fullname',
         'sex',
-        'desciption',
+        'description',
     ];
 }
