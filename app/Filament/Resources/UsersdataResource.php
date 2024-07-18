@@ -43,7 +43,7 @@ class UsersdataResource extends Resource
                     ->autosize()
                     ->required()
                     ->maxLength(255),
-            ]);
+            ])->columns(1);
     }
 
     public static function table(Table $table): Table
