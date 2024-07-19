@@ -69,7 +69,7 @@ class UserinformationResource extends Resource
                 Forms\Components\TextInput::make('mode_of_communication')
                     ->required()
                     ->maxLength(255),
-                    Forms\Components\Select::make('nature_of_concerns')
+                    Forms\Components\Select::make('nature_of_concern')
                     ->options([
                         'How to Access TOP' => 'How to Access TOP',
                         'How to Enroll' => 'How to Enroll',
@@ -110,27 +110,20 @@ class UserinformationResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('fullname')
-                    ->searchable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('sex')
-                    ->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email')
-                    ->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('date_received')
-                    ->toggleable(isToggledHiddenByDefault: true)
                     ->date()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('date_emailed')
-                    ->toggleable(isToggledHiddenByDefault: true)
                     ->date()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('mode_of_communication')
-                    ->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('nature_of_concern')
-                    ->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('actual_inquiry')
                     ->toggleable(isToggledHiddenByDefault: true)
@@ -139,8 +132,7 @@ class UserinformationResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('person_in_charge')
-                    ->searchable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
