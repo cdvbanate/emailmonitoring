@@ -12,6 +12,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Auth;
 
 
 
@@ -28,6 +29,8 @@ class UserinformationResource extends Resource
 
     public static function form(Form $form): Form
     {
+        $loggedInUser = Auth::user(); // Get the currently logged-in user
+        
         return $form
             ->schema([
                 Forms\Components\Section::make('User Informations')
@@ -66,9 +69,17 @@ class UserinformationResource extends Resource
                 Forms\Components\TextInput::make('mode_of_communication')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('nature_of_concern')
-                    ->required()
-                    ->maxLength(255),
+                    Forms\Components\Select::make('nature_of_concerns')
+                    ->options([
+                        'How to Access TOP' => 'How to Access TOP',
+                        'How to Enroll' => 'How to Enroll',
+                        'Verification of Certificate of Completion' => 'Verification of Certificate of Completion',
+                        'Change User Password' => 'Change User Password',
+                        'Inquire to TOP courses' => 'Inquire to TOP courses',
+                    ])
+                    ->native(false)
+                    ->required(),
+
                 Forms\Components\TextArea::make('actual_inquiry')
                     ->required()
                     ->rows(5) // Changed `row` to `rows` for correct method name
@@ -83,14 +94,11 @@ class UserinformationResource extends Resource
                 Forms\Components\Section::make('Person in Charge')
                 ->description('Put the Person in charge here.')
                 ->schema([
-                Forms\Components\Select::make('person_in_charge')
-                ->options([
-                    'cristian' => 'Cristian',
-                    'carlo' => 'Carlo',
-                    'marmel' => 'Marmel',
-                    'janel' => 'Janel',
-                ])
-                ->native(false)
+                    Forms\Components\Select::make('person_in_charge')
+                    ->options([
+                        $loggedInUser->name => $loggedInUser->name, // Use logged-in user's name as an option
+                    ])
+                    ->native(false)
                     ->required()
                     ])
                     ->columns(1),
