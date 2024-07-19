@@ -38,8 +38,8 @@ class UserinformationResource extends Resource
                     ->maxLength(255),
                     Forms\Components\Select::make('sex')
                     ->options([
-                        'male' => 'Male',
-                        'female' => 'Female',
+                        'Male' => 'Male',
+                        'Female' => 'Female',
                     ])
                     ->native(false)
                     ->required(),
@@ -69,12 +69,14 @@ class UserinformationResource extends Resource
                 Forms\Components\TextInput::make('nature_of_concern')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('actual_inquiry')
+                Forms\Components\TextArea::make('actual_inquiry')
                     ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('recommendation')
+                    ->rows(5) // Changed `row` to `rows` for correct method name
+                    ->maxLength(1000),
+                Forms\Components\TextArea::make('recommendation')
                     ->required()
-                    ->maxLength(255),
+                    ->rows(5)
+                    ->maxLength(1000),
                 ])
                 ->columns(2),
 
@@ -100,27 +102,37 @@ class UserinformationResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('fullname')
-                    ->searchable(),
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('sex')
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email')
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('date_received')
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->date()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('date_emailed')
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->date()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('mode_of_communication')
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('nature_of_concern')
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('actual_inquiry')
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('recommendation')
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('person_in_charge')
-                    ->searchable(),
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
