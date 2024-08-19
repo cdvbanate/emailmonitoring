@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('actual_inquiry');
             $table->string('recommendation');
             $table->string('person_in_charge');
+            $table->string('status');
             $table->timestamps();
         });
     }

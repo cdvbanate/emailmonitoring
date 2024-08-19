@@ -22,6 +22,7 @@ class userinformation extends Model
         'actual_inquiry',
         'recommendation',
         'person_in_charge',
+        'status',
     ];
 
     protected static function booted()
@@ -31,8 +32,10 @@ class userinformation extends Model
         });
     
         static::updated(function ($userinformation) {
-            // You can also send an email when the record is updated
-            // Mail::to($userinformation->email)->send(new Hellomail($userinformation));
+            // Check if the status was changed to 'Approved'
+            if ($userinformation->isDirty('status') && $userinformation->status === 'Approved') {
+                Mail::to($userinformation->email)->send(new Hellomail($userinformation));
+            }
         });
     }
 

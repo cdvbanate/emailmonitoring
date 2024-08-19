@@ -104,6 +104,15 @@ class UserinformationResource extends Resource
                     ->required()
                     ])
                     ->columns(1),
+
+  
+                Forms\Components\Select::make('status')
+                    ->options([
+                        'Approved' => 'Approved',
+                        'Reject' => 'Reject',
+                    ])
+                    ->native(false)
+                    ->required(),
                 ]);
     }
 
@@ -134,6 +143,8 @@ class UserinformationResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('person_in_charge')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('status')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
