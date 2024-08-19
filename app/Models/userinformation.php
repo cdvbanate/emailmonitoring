@@ -29,7 +29,7 @@ class userinformation extends Model
         static::created(function ($userinformation) {
             Mail::to($userinformation->email)->send(new Hellomail($userinformation));
         });
-
+    
         static::updated(function ($userinformation) {
             // You can also send an email when the record is updated
             // Mail::to($userinformation->email)->send(new Hellomail($userinformation));
