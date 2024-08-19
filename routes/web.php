@@ -1,6 +1,10 @@
 <?php
 
+use App\Mail\Hellomail;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -14,5 +18,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    Mail::to('carlobanatesample@gmail.com')->send(new Hellomail());
+    return 'Email sent!';
 });

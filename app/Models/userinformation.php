@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use App\Mail\Hellomail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Mail;
 
 class userinformation extends Model
 {
@@ -21,4 +23,17 @@ class userinformation extends Model
         'recommendation',
         'person_in_charge',
     ];
+
+    protected static function booted()
+    {
+        static::created(function ($userinformation) {
+            Mail::to($userinformation->email)->send(new Hellomail($userinformation));
+        });
+
+        static::updated(function ($userinformation) {
+            // You can also send an email when the record is updated
+            // Mail::to($userinformation->email)->send(new Hellomail($userinformation));
+        });
+    }
+
 }

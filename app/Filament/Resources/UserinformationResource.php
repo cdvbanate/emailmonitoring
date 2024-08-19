@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\UserinformationResource\Pages;
 use App\Filament\Resources\UserinformationResource\RelationManagers;
+use App\Mail\Hellomail;
 use App\Models\Userinformation;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -13,6 +14,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 
 
@@ -174,5 +176,13 @@ class UserinformationResource extends Resource
             'view' => Pages\ViewUserinformation::route('/{record}'),
             'edit' => Pages\EditUserinformation::route('/{record}/edit'),
         ];
-    }    
+    } 
+    // Sending email after creating a record
+    public static function afterCreate(Userinformation $userinformation)
+    {
+        $user = $userinformation; // Assuming $userinformation has the user data
+
+        Mail::to($user->email)->send(new Hellomail($user));
+    }
+    
 }
